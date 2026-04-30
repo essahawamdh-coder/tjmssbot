@@ -177,20 +177,25 @@ def handle_msg(message):
                 bot.send_message(uid, "انتهت أسئلة هذا القسم.")
                 start(message)
 
-while True:
-    try:
-        print("✅ النسخة الاحترافية النهائية تعمل الآن.. مع دعم الخيارات تحت الصور!")
+while True:try:
+            print("✅ النسخة الاحترافية النهائية تعمل الآن.. مع دعم الخيارات تحت الصور!")
+        except Exception as e:
+            print(f"خطأ في الطباعة: {e}")
+
         # ----------------- ميزة التذكير كل 5 دقائق -----------------
 def reminder_thread():
     """هذه الدالة تعمل في الخلفية لإرسال تذكير كل 5 دقائق"""
     while True:
-        time.sleep(300)  # الانتظار لمدة 300 ثانية (5 دقائق)
-        for chat_id in list(user_status.keys()):
-            try:
-                bot.send_message(chat_id, "💡 تذكير: يا بطل، لا تنسى إكمال اختبارك! أرسل إجابتك للسؤال المتبقي.")
-            except Exception:
-                pass  # لتفادي توقف السيرفر إذا قام طالب بحظر البوت
-
+        try:
+            time.sleep(300)  # الانتظار لمدة 300 ثانية (5 دقائق)
+            for chat_id in list(user_status.keys()):
+                try:
+                    bot.send_message(chat_id, "💡 تذكير: يا بطل، لا تنسى إكمال اختبارك! أرسل إجابتك للسؤال المتبقي.")
+                except Exception:
+                    pass  # لتفادي توقف السيرفر إذا قام طالب بحظر البوت
+        except Exception as e:
+            print(f"Error in reminder thread: {e}")
+            time.sleep(10) # انتظار بسيط قبل المحاولة مرة أخرى في حال حدوث خطأ عام
 # بدء تشغيل التذكير في مسار منفصل (Thread)
 t = threading.Thread(target=reminder_thread)
 t.daemon = True
