@@ -178,15 +178,25 @@ def handle_msg(message):
                 start(message)
 
 try:
-            print("✅ النسخة الاحترافية النهائية تعمل الآن.. مع دعم الخيارات تحت الصور!")
-        except Exception as e:
-            print(f"خطأ في الطباعة: {e}")
+print("✅ البوت يعمل الآن والنسخة الاحترافية جاهزة!")
+    except Exception as e:
+        print(f"خطأ في الطباعة: {e}")
 
-        # ----------------- ميزة التذكير كل 5 دقائق -----------------
+# --- دالة التذكير كل 5 دقائق (تأكد أنها تبدأ من أول السطر) ---
 def reminder_thread():
-    """هذه الدالة تعمل في الخلفية لإرسال تذكير كل 5 دقائق"""
     while True:
         try:
+      import time
+            time.sleep(300)
+            for chat_id in list(user_status.keys()):
+                try:
+                    bot.send_message(chat_id, "💡 تذكير: لا تنسى إكمال اختبارك يا بطل!")
+                except:
+                    pass
+        except Exception as e:
+            print(f"Error: {e}")
+            import time
+            time.sleep(10)     try:
             time.sleep(300)  # الانتظار لمدة 300 ثانية (5 دقائق)
             for chat_id in list(user_status.keys()):
                 try:
