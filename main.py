@@ -177,44 +177,26 @@ def handle_msg(message):
                 bot.send_message(uid, "انتهت أسئلة هذا القسم.")
                 start(message)
 
-# --- بداية تشغيل النسخة الاحترافية (من السطر 180 فما فوق) ---
 try:
-    print("✅ البوت يعمل الآن.. نظام التذكير الذكي مفعل!")
+    print("✅ البوت يعمل الآن بنجاح!")
 except Exception as e:
-    print(f"خطأ في الطباعة: {e}")
+    print(f"Error: {e}")
 
-# --- دالة التذكير كل 5 دقائق مع حماية كاملة ---
 def reminder_thread():
     import time
     while True:
         try:
-            # الانتظار لمدة 300 ثانية (5 دقائق بالضبط)
-            time.sleep(300) 
-            
-            # فحص قائمة الطلاب النشطين
+            time.sleep(300)
             for chat_id in list(user_status.keys()):
                 try:
-                    # إرسال رسالة التذكير
-                    bot.send_message(chat_id, "💡 تذكير: يا بطل، لا تنسى إكمال اختبارك! نحن بانتظار إجابتك للسؤال المتبقي.")
-                    # انتظار بسيط لتفادي ضغط السيرفر وتجنب حظر التلغرام
-                    time.sleep(0.5) 
-                except Exception:
-                    # إذا قام الطالب بحظر البوت، نتجاهله فوراً لضمان استمرار السيرفر
-                    continue 
-                    
+                    bot.send_message(chat_id, "💡 تذكير: لا تنسى إكمال اختبارك يا بطل!")
+                    time.sleep(0.5)
+                except:
+                    continue
         except Exception as e:
-            # في حال حدث خطأ تقني عام، ننتظر 10 ثوانٍ قبل المحاولة مجدداً
-            print(f"حدث خطأ في نظام التذكير: {e}")
             time.sleep(10)
 
-# --- تشغيل نظام التذكير في الخلفية (Background Thread) ---
 import threading
-try:
-    t = threading.Thread(target=reminder_thread, daemon=True)
-    t.start()
-except Exception as e:
-    print(f"فشل تشغيل خيط التذكير: {e}")
+threading.Thread(target=reminder_thread, daemon=True).start()
 
-# --- السطر الأخير لتشغيل البوت بانتظام ---
-print("🚀 البوت الآن يستقبل الرسائل من الطلاب...")
 bot.infinity_polling()
