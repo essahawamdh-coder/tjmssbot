@@ -176,7 +176,6 @@ def handle_msg(message):
             else:
                 bot.send_message(uid, "انتهت أسئلة هذا القسم.")
                 start(message)
-
 try:
     print("✅ البوت يعمل الآن بنجاح!")
 except Exception as e:
