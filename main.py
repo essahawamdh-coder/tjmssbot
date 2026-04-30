@@ -178,14 +178,14 @@ def handle_msg(message):
                 start(message)
 
 try:
-print("✅ البوت يعمل الآن والنسخة الاحترافية جاهزة!")
+    print("✅ البوت يعمل الآن والنسخة الاحترافية جاهزة!")
     except Exception as e:
-        print(f"خطأ في الطباعة: {e}")
+     print(f"خطأ في الطباعة: {e}")
 
 # --- دالة التذكير كل 5 دقائق (تأكد أنها تبدأ من أول السطر) ---
 def reminder_thread():
     while True:
-        try:
+ try:
       import time
             time.sleep(300)
             for chat_id in list(user_status.keys()):
